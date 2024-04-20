@@ -34,7 +34,7 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User existingUser = usuarioService.findUserById(id);
         if (existingUser != null) {
-            return ResponseEntity.ok(usuarioService.updateUser(user));
+            return ResponseEntity.ok(usuarioService.updateUser(id, user));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

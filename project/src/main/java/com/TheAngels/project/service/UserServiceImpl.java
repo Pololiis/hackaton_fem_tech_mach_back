@@ -10,10 +10,13 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final EncryptServiceImpl encryptService;
     @Override
     public User createUser(User user) {
         if(user != null) {
+            String hashPassword = encryptService.encryptPassword(user.getPassword());
+            user.setPassword(hashPassword);
             return userRepository.save(user);
         }
         return null;
@@ -31,8 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        Optional<User> userOptional = userRepository.findById(user.getId());
+    public User updateUser(Long id, User user) {
+        Optional<User> userOptional = userRepository.findById(id);
         User userToUpdate = userOptional.orElse(null);
         if(userToUpdate != null) {
             userToUpdate.setName(user.getName());
