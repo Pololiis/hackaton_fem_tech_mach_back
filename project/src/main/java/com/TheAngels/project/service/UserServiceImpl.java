@@ -13,6 +13,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EncryptServiceImpl encryptService;
+    private final JwtServiceImpl jwtService;
     @Override
     public User createUser(User user) {
         if(user != null) {
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
                 user.setName(loginUser.getName());
                 user.setLastName(loginUser.getLastName());
                 user.setPhone(loginUser.getPhone());
+                user.setToken(jwtService.buildJwt());
                 return user;
             }
         }
