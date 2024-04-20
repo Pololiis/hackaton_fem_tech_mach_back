@@ -3,12 +3,14 @@ package com.TheAngels.project.service;
 import com.TheAngels.project.entity.LoginResponse;
 import com.TheAngels.project.entity.User;
 import com.TheAngels.project.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
