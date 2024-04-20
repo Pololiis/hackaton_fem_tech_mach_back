@@ -1,6 +1,7 @@
 package com.TheAngels.project.controller;
 
 import com.TheAngels.project.entity.LoginRequest;
+import com.TheAngels.project.entity.LoginResponse;
 import com.TheAngels.project.entity.User;
 import com.TheAngels.project.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final UserServiceImpl userService;
     @PostMapping
-    public ResponseEntity<User> loginUser(@RequestBody LoginRequest user) {
-        User authenticatedUser = userService.loginUser(user.getEmail(), user.getPassword());
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest user) {
+        LoginResponse authenticatedUser = userService.loginUser(user.getEmail(), user.getPassword());
         if (authenticatedUser != null) {
             return ResponseEntity.ok(authenticatedUser);
         } else {

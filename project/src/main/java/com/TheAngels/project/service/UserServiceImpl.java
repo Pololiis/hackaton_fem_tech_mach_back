@@ -1,5 +1,6 @@
 package com.TheAngels.project.service;
 
+import com.TheAngels.project.entity.LoginResponse;
 import com.TheAngels.project.entity.User;
 import com.TheAngels.project.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -34,12 +35,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User loginUser(String email, String password) {
+    public LoginResponse loginUser(String email, String password) {
         User loginUser = userRepository.findUserByEmail(email);
         if (loginUser != null) {
             Boolean passwordMatched = encryptService.verifyPassword(password, loginUser.getPassword());
             if (passwordMatched) {
-                return loginUser;
+                LoginResponse user = new LoginResponse();
+                user.setName(loginUser.getName());
+                user.setLastName(loginUser.getLastName());
+                user.setPhone(loginUser.getPhone());
+                return user;
             }
         }
         return null;
