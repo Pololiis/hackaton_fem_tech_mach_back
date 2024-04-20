@@ -9,9 +9,8 @@ public class EncryptServiceImpl implements EncryptService {
     public String encryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
-
     @Override
     public Boolean verifyPassword(String password, String hashPassword) {
-        return null;
+        return BCrypt.checkpw(password, hashPassword);
     }
 }

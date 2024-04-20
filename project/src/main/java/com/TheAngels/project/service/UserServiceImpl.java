@@ -34,6 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User loginUser(String email, String password) {
+        User loginUser = userRepository.findUserByEmail(email);
+        if (loginUser != null) {
+            Boolean passwordMatched = encryptService.verifyPassword(password, loginUser.getPassword());
+            if (passwordMatched) {
+                return loginUser;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public User updateUser(Long id, User user) {
         Optional<User> userOptional = userRepository.findById(id);
         User userToUpdate = userOptional.orElse(null);

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    private final UserServiceImpl usuarioService;
+    private final UserServiceImpl userService;
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = usuarioService.createUser(user);
+        User createdUser = userService.createUser(user);
         if(createdUser != null) {
             return ResponseEntity.ok(createdUser);
         } else {
@@ -23,7 +23,7 @@ public class UserController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {
-        User searchedUser = usuarioService.findUserById(id);
+        User searchedUser = userService.findUserById(id);
         if(searchedUser != null) {
             return ResponseEntity.ok(searchedUser);
         } else {
@@ -32,9 +32,9 @@ public class UserController {
     }
     @PutMapping("/{id}/update")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        User existingUser = usuarioService.findUserById(id);
+        User existingUser = userService.findUserById(id);
         if (existingUser != null) {
-            return ResponseEntity.ok(usuarioService.updateUser(id, user));
+            return ResponseEntity.ok(userService.updateUser(id, user));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

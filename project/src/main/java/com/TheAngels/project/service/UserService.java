@@ -6,5 +6,6 @@ public interface UserService {
     User createUser(User user);
     User findUserById(Long id);
     User findUserByEmail(String email);
+    User loginUser(String email, String password);
     User updateUser(Long id, User user);
 }

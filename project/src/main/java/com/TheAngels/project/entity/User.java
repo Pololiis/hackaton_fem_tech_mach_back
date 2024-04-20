@@ -3,6 +3,7 @@ package com.TheAngels.project.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Random;
 
@@ -23,6 +24,7 @@ public class User {
     private String phone;
     @NotNull
     @Column(unique = true)
+    @Email
     private String email;
     @NotNull
     private String password;
