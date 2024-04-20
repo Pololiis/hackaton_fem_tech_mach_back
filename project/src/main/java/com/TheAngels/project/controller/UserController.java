@@ -15,25 +15,25 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = usuarioService.createUser(user);
-        if (createdUser != null) {
+        if(createdUser != null) {
             return ResponseEntity.ok(createdUser);
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    @GetMapping("/{email}")
-    public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
-        User searchedUser = usuarioService.findUserByEmail(email);
-        if (searchedUser != null) {
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        User searchedUser = usuarioService.findUserById(id);
+        if(searchedUser != null) {
             return ResponseEntity.ok(searchedUser);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User searchedUser = usuarioService.findUserByEmail(user.getEmail());
-        if (searchedUser != null) {
+    @PutMapping("/{id}/update")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User existingUser = usuarioService.findUserById(id);
+        if (existingUser != null) {
             return ResponseEntity.ok(usuarioService.updateUser(user));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
